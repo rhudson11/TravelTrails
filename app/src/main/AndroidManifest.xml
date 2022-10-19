@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelTrails">
-        <activity android:name=".StartTrailActivity"></activity>
+        <activity android:name=".CameraActivity"></activity>
+        <activity android:name=".StartTrailActivity" />
         <activity android:name=".GalleryActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".RegisterActivity" />
