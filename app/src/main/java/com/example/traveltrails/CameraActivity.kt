@@ -23,6 +23,7 @@ class CameraActivity : AppCompatActivity() {
         setContentView(R.layout.activity_camera)
 
         take_picture_button = findViewById(R.id.take_picture_button)
+        camera_gallery_button = findViewById(R.id.camera_gallery_button)
         image_viewer = findViewById(R.id.image_viewer)
 
         take_picture_button.setOnClickListener { v: View ->
@@ -38,6 +39,14 @@ class CameraActivity : AppCompatActivity() {
             // Launch intent
             startActivityForResult(intent, 1001)
         }
+
+        camera_gallery_button.setOnClickListener { v: View ->
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = "image/*"
+            startActivityForResult(intent, 1000)
+        }
+
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
