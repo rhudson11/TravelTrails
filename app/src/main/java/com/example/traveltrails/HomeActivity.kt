@@ -36,5 +36,11 @@ class HomeActivity : AppCompatActivity() {
             val intent = Intent(this, CameraActivity::class.java)
             startActivity(intent)
         }
+
+        view_map_button.setOnClickListener { v: View ->
+            val intent = Intent(this, MapsActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }
