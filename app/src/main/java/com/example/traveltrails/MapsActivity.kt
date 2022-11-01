@@ -1,7 +1,10 @@
 package com.example.traveltrails
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -39,5 +42,22 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val sydney = LatLng(-34.0, 151.0)
         mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+
+        mMap.setOnMarkerClickListener { marker ->
+            if (marker.isInfoWindowShown) {
+                marker.hideInfoWindow()
+            } else {
+                val intent = Intent(this, CameraActivity::class.java)
+                val toast = Toast.makeText(
+                        this@MapsActivity,
+                        marker.title,
+                        Toast.LENGTH_LONG
+                )
+                toast.show()
+                intent.putExtra("Title", marker.title)
+                startActivity(intent)
+            }
+            true
+        }
     }
 }
