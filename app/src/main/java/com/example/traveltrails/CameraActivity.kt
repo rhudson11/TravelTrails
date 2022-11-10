@@ -15,7 +15,8 @@ class CameraActivity : AppCompatActivity() {
 
     private lateinit var take_picture_button: Button
     private lateinit var camera_gallery_button: Button
-    private var imageUri: Uri? = null
+    //private var imageUri: Uri? = null
+    private lateinit var imageUri: Uri
     private lateinit var image_viewer: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +31,8 @@ class CameraActivity : AppCompatActivity() {
             val values = ContentValues()
          //   values.put(MediaStore.Images.Media.TITLE, R.string.take_picture)
           //  values.put(MediaStore.Images.Media.DESCRIPTION, R.string.take_picture_description)
-            imageUri = this?.contentResolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+            imageUri = this.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)!!
+            UploadUtility(this).uploadFile(imageUri) // Either Uri, File or String file path
 
             // Create camera intent
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
