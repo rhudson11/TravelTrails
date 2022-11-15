@@ -1,12 +1,13 @@
 package com.example.traveltrails
 
-import android.content.Context
-import android.content.res.Resources
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
+import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.logging.HttpLoggingInterceptor
 import org.json.JSONObject
+import java.io.File
+import java.io.IOException
+import java.net.URI.create
+
 
 class ServerManager {
     val okHttpClient: OkHttpClient
@@ -37,5 +38,25 @@ class ServerManager {
             result = json.getString("message")
         }
         return result
+    }
+
+    @Throws(Exception::class)
+    fun run() {
+        // Use the imgur image upload API as documented at https://api.imgur.com/endpoints/image
+        val MEDIA_TYPE_PNG = "image/png".toMediaType()
+        val f: File = File.createTempFile("history",".png")
+        val requestBody: RequestBody = MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("file", "memorial.png",
+                        RequestBody.create(MEDIA_TYPE_PNG, f))
+                .build()
+        val request: Request = Request.Builder()
+                .url("http://10.197.28.61:8000/upload_image/blah")
+                .post(requestBody)
+                .build()
+        okHttpClient.newCall(request).execute().use { response ->
+            if (!response.isSuccessful) throw IOException("Unexpected code $response")
+            System.out.println(response.body?.string())
+        }
     }
 }
