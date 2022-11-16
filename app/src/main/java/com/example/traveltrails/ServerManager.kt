@@ -41,14 +41,14 @@ class ServerManager {
     }
 
     @Throws(Exception::class)
-    fun run() {
+    fun run(file: File) {
         // Use the imgur image upload API as documented at https://api.imgur.com/endpoints/image
         val MEDIA_TYPE_PNG = "image/png".toMediaType()
-        val f: File = File.createTempFile("history",".png")
+        //val f: File = File.createTempFile("history",".png")
         val requestBody: RequestBody = MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("file", "memorial.png",
-                        RequestBody.create(MEDIA_TYPE_PNG, f))
+                        RequestBody.create(MEDIA_TYPE_PNG, file))
                 .build()
         val request: Request = Request.Builder()
                 .url("http://10.197.28.61:8000/upload_image/blah")

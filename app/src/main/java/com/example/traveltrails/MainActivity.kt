@@ -42,9 +42,11 @@ class MainActivity : AppCompatActivity() {
         register_button.setOnClickListener { v: View ->
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
+            /*
             doAsync {
                 ServerManager().run();
             }
+             */
         }
     }
 }

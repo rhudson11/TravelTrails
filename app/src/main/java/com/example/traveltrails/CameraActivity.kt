@@ -2,11 +2,10 @@ package com.example.traveltrails
 
 import android.app.Activity
 import android.content.ContentValues
-import android.content.ContentValues.TAG
 import android.content.Intent
-import android.hardware.Camera
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -16,13 +15,13 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
+import org.jetbrains.anko.doAsync
 import java.io.File
-import java.io.FileNotFoundException
 import java.io.FileOutputStream
-import java.io.IOException
-import java.nio.file.Files.exists
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class CameraActivity : AppCompatActivity() {
 
@@ -46,6 +45,14 @@ class CameraActivity : AppCompatActivity() {
           //  values.put(MediaStore.Images.Media.DESCRIPTION, R.string.take_picture_description)
             imageUri = this.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)!!
            // UploadUtility(this).uploadFile(imageUri) // Either Uri, File or String file path
+/*
+            val tempFile = File.createTempFile("camera", ".png", externalCacheDir)
+            val tempFile2 = MediaStore.Images.Media.
+            doAsync {
+                ServerManager().run(tempFile)
+            }
+
+ */
 
             // Create camera intent
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -69,15 +76,29 @@ class CameraActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         // Callback from camera intent
-        if (resultCode == Activity.RESULT_OK){
+        if (resultCode == Activity.RESULT_OK) {
+                UploadUtility(this).uploadFile(imageUri)
+            /*
+            val imageBitmap = data!!.extras!!.get("data") as Bitmap
+            val fOut = FileOutputStream(File(imageUri.path))
+            imageBitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut)
             // Set image captured to image view
-            val pictureFile: File = getOutputMediaFile(MEDIA_TYPE_IMAGE)!!
-            JSONParser.uploadImage(pictureFile.absolutePath)
+         //   val myBitmap = CameraActivity.getMbitmap();
+        //    val bitmap = BitmapFactory.decodeFile(PathUtil.getPath(this, imageUri))
+        //    val file = IFHelper.savebitmap(bitmap)
+            val file = IFHelper.savebitmap(imageBitmap)
+           doAsync {
+                ServerManager().run(file)
+            }
+            //JSONParser.uploadImage(pictureFile.absolutePath)
             image_viewer.setImageURI(imageUri)
         }
         else {
             // Failed to take picture
             print("Failed to take camera picture")
+        }
+
+          */
         }
     }
 

@@ -15,8 +15,8 @@ class UploadUtility(activity: Activity) {
 
     var activity = activity;
     var dialog: ProgressDialog? = null
-    var serverURL: String = "https://handyopinion.com/tutorials/UploadToServer.php"
-    var serverUploadDirectoryPath: String = "https://handyopinion.com/tutorials/uploads/"
+    var serverURL: String = "http://10.197.28.61:8000/upload_image/blah"
+    var serverUploadDirectoryPath: String = "http://10.197.28.61:8000/upload_image/blah"
     val client = OkHttpClient()
 
     fun uploadFile(sourceFilePath: String, uploadedFileName: String? = null) {
@@ -40,7 +40,7 @@ class UploadUtility(activity: Activity) {
             try {
                 val requestBody: RequestBody =
                         MultipartBody.Builder().setType(MultipartBody.FORM)
-                                .addFormDataPart("uploaded_file", fileName,sourceFile.asRequestBody(mimeType.toMediaTypeOrNull()))
+                                .addFormDataPart("file", fileName,sourceFile.asRequestBody(mimeType.toMediaTypeOrNull()))
                                 .build()
 
                 val request: Request = Request.Builder().url(serverURL).post(requestBody).build()
