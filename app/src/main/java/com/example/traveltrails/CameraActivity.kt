@@ -66,7 +66,7 @@ class CameraActivity : AppCompatActivity() {
         // Callback from camera intent
         if (resultCode == Activity.RESULT_OK) {
                 UploadUtility(this, location).uploadFile(imageUri)
-                val intent = Intent(this, HomeActivity::class.java)
+                val intent = Intent(this, MapsActivity::class.java)
                 startActivity(intent)
         }
     }
