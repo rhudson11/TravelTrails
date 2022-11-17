@@ -18,10 +18,6 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.TravelTrails">
-        <activity android:name=".GetByName"></activity>
-        <activity android:name=".Upload" />
-        <activity android:name=".MainActivity2" />
-        <activity android:name=".GetAll" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

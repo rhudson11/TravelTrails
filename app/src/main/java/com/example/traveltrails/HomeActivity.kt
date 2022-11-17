@@ -28,7 +28,7 @@ class HomeActivity : AppCompatActivity() {
         profile_button = findViewById(R.id.profile_button)
 
         gallery_button.setOnClickListener { v: View ->
-            val intent = Intent(this, Upload::class.java)
+            val intent = Intent(this, GalleryActivity::class.java)
             startActivity(intent)
         }
 
