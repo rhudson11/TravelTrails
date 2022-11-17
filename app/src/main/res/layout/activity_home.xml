@@ -4,38 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/smartcity1"
+    android:background="@drawable/theme2"
     tools:context=".HomeActivity">
 
     <ImageButton
         android:id="@+id/view_map_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/profile_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gallery_button"
-        app:srcCompat="@drawable/map_icon" />
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toStartOf="@+id/gallery_button"
+        app:layout_constraintStart_toEndOf="@+id/profile_button"
+        app:layout_constraintTop_toBottomOf="@+id/welcome_text"
+        app:srcCompat="@drawable/map_icon2" />
 
     <ImageButton
         android:id="@+id/gallery_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/gallery_icon" />
+        app:layout_constraintTop_toBottomOf="@+id/welcome_text"
+        app:srcCompat="@drawable/gallery_icon2" />
 
     <ImageButton
         android:id="@+id/profile_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="64dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/profile_icon" />
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcome_text"
+        app:srcCompat="@drawable/profile_icon2" />
 
     <TextView
         android:id="@+id/textView8"
@@ -44,7 +44,7 @@
         android:fontFamily="monospace"
         android:text="Map"
         android:textAlignment="viewStart"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/view_map_button"
         app:layout_constraintStart_toStartOf="@+id/view_map_button"
@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="monospace"
         android:text="Profile"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/profile_button"
         app:layout_constraintStart_toStartOf="@+id/profile_button"
@@ -70,7 +70,7 @@
         android:layout_marginTop="32dp"
         android:fontFamily="monospace"
         android:text="TextView"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="36sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -81,7 +81,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="monospace"
         android:text="Gallery"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/gallery_button"
         app:layout_constraintStart_toStartOf="@+id/gallery_button"
