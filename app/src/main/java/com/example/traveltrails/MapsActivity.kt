@@ -59,12 +59,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 marker.hideInfoWindow()
             } else {
                 val intent = Intent(this, CameraActivity::class.java)
-                val toast = Toast.makeText(
-                        this@MapsActivity,
-                        marker.title,
-                        Toast.LENGTH_LONG
-                )
-                toast.show()
                 intent.putExtra("Title", marker.title)
                 startActivity(intent)
             }

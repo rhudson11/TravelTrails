@@ -26,7 +26,7 @@ class GalleryAdapter(val locations: List<Location>) : RecyclerView.Adapter<Galle
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentRecipe = locations[position]
         holder.recipeTitle.setText(currentRecipe.title)
-        holder.healthScore.setText(currentRecipe.score.toString())
+        holder.healthScore.setText("Points: " + currentRecipe.score.toString())
 
         if(!currentRecipe.imgUrl.isNullOrBlank()) {
             Picasso.get()

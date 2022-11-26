@@ -15,6 +15,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import org.jetbrains.anko.doAsync
 import java.io.File
@@ -30,6 +31,7 @@ class CameraActivity : AppCompatActivity() {
     private lateinit var location: String
     private lateinit var imageUri: Uri
     private lateinit var image_viewer: ImageView
+    private lateinit var loc_text: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +39,12 @@ class CameraActivity : AppCompatActivity() {
 
         take_picture_button = findViewById(R.id.take_picture_button)
         camera_gallery_button = findViewById(R.id.camera_gallery_button)
-        image_viewer = findViewById(R.id.image_viewer)
+        image_viewer = findViewById(R.id.sample_image)
+        loc_text = findViewById(R.id.loc_text)
         location = intent.getStringExtra("Title")!!
+        loc_text.setText(location)
+
+        image_viewer.setImageResource(R.drawable.earth);
 
         take_picture_button.setOnClickListener { v: View ->
             val values = ContentValues()
@@ -69,7 +75,7 @@ class CameraActivity : AppCompatActivity() {
                 val intent = Intent(this, MapsActivity::class.java)
 
                 if(!hasLoc(location))
-                    gallery_locations.add(Location(location,0,""))
+                    gallery_locations.add(Location(location,0,"https://dcist.com/wp-content/uploads/sites/3/2020/07/washington-monument-5266903_1920.jpg"))
                 startActivity(intent)
         }
     }

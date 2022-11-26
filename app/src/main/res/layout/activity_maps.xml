@@ -17,7 +17,7 @@
     android:id="@+id/button1"
     android:layout_width="48dp"
     android:layout_height="48dp"
-    android:background="@drawable/images"
+    android:background="@drawable/home_icon"
     android:layout_alignParentBottom="true"
     android:layout_alignParentRight="true"
     android:padding="8dp"
