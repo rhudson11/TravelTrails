@@ -39,7 +39,7 @@ class HomeActivity : AppCompatActivity() {
         welcome.setText("Welcome,\n" + username)
 
         gallery_button.setOnClickListener { v: View ->
-            val intent = Intent(this, GalleryActivity::class.java)
+            val intent = Intent(this, GalleryActivity2::class.java)
             startActivity(intent)
         }
 

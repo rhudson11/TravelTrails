@@ -67,7 +67,18 @@ class CameraActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK) {
                 UploadUtility(this, location).uploadFile(imageUri)
                 val intent = Intent(this, MapsActivity::class.java)
+
+                if(!hasLoc(location))
+                    gallery_locations.add(Location(location,0,""))
                 startActivity(intent)
         }
+    }
+
+    fun hasLoc(s: String) : Boolean {
+        for(x in gallery_locations) {
+            if(x.title.equals(s))
+                return true
+        }
+        return false
     }
 }

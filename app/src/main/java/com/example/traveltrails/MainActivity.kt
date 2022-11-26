@@ -11,6 +11,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import org.jetbrains.anko.doAsync
 
+var gallery_locations: ArrayList<Location> = ArrayList<Location>()
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var login_user_field: EditText
