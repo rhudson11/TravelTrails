@@ -36,10 +36,16 @@ class HomeActivity : AppCompatActivity() {
         profile_button = findViewById(R.id.profile_button)
 
         welcome = findViewById(R.id.welcome_text)
-        welcome.setText("Welcome,\n" + username)
+        welcome.setText("Welcome,\n" + username + "!")
 
         gallery_button.setOnClickListener { v: View ->
             val intent = Intent(this, GalleryActivity2::class.java)
+            startActivity(intent)
+        }
+
+        profile_button.setOnClickListener { v: View ->
+            val intent = Intent(this, MainActivity::class.java)
+            gallery_locations.clear()
             startActivity(intent)
         }
 

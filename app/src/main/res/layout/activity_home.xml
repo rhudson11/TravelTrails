@@ -35,7 +35,7 @@
         android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcome_text"
-        app:srcCompat="@drawable/profile_icon2" />
+        app:srcCompat="@drawable/logout_button" />
 
     <TextView
         android:id="@+id/textView8"
@@ -54,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
-        android:text="Profile"
+        android:text="Logout"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/profile_button"
         app:layout_constraintStart_toStartOf="@+id/profile_button"
