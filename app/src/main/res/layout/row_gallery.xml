@@ -33,7 +33,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/recipeTitle"
+                android:id="@+id/placeTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -47,12 +47,12 @@
                 tools:text="Title" />
 
             <TextView
-                android:id="@+id/healthScore"
+                android:id="@+id/numPoints"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@id/recipeTitle"
-                app:layout_constraintTop_toBottomOf="@id/recipeTitle"
+                app:layout_constraintStart_toStartOf="@id/placeTitle"
+                app:layout_constraintTop_toBottomOf="@id/placeTitle"
                 tools:text="Source" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,8 +28,8 @@ class GalleryAdapter(val locations: List<Location>) : RecyclerView.Adapter<Galle
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentRecipe = locations[position]
-        holder.recipeTitle.setText(currentRecipe.title)
-        holder.healthScore.setText("Points: " + currentRecipe.score.toString())
+        holder.placeTitle.setText(currentRecipe.title)
+        holder.numPoints.setText("Points: " + currentRecipe.score.toString())
 
         if(!currentRecipe.imgUrl.isNullOrBlank()) {
             Picasso.get()
@@ -37,7 +37,7 @@ class GalleryAdapter(val locations: List<Location>) : RecyclerView.Adapter<Galle
                     .into(holder.icon)
         }
 
-        holder.recipeTitle.setOnClickListener { v: View ->
+        holder.placeTitle.setOnClickListener { v: View ->
             val sceneViewerIntent = Intent(Intent.ACTION_VIEW)
             sceneViewerIntent.data = Uri.parse("https://arvr.google.com/scene-viewer/1.0?file=https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Avocado/glTF/Avocado.gltf")
             sceneViewerIntent.setPackage("com.google.android.googlequicksearchbox")
@@ -46,8 +46,8 @@ class GalleryAdapter(val locations: List<Location>) : RecyclerView.Adapter<Galle
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val recipeTitle : TextView = itemView.findViewById(R.id.recipeTitle)
-        val healthScore: TextView = itemView.findViewById(R.id.healthScore)
+        val placeTitle : TextView = itemView.findViewById(R.id.placeTitle)
+        val numPoints: TextView = itemView.findViewById(R.id.numPoints)
         val icon: ImageView = itemView.findViewById(R.id.imageIcon)
     }
 }

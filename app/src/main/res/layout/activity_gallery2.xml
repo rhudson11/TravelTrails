@@ -8,7 +8,7 @@
     tools:context=".GalleryActivity2">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/cuisineRecycler"
+        android:id="@+id/locationRecycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="32dp"

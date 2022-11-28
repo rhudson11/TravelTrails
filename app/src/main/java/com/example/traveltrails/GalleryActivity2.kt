@@ -21,7 +21,7 @@ class GalleryActivity2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gallery2)
 
-        recyclerView = findViewById(R.id.cuisineRecycler)
+        recyclerView = findViewById(R.id.locationRecycler)
 
         adapter = GalleryAdapter(gallery_locations)
         recyclerView.setAdapter(adapter)
