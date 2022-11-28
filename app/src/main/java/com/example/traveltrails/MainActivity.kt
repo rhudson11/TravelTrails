@@ -1,13 +1,13 @@
 package com.example.traveltrails
 
-import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import org.jetbrains.anko.doAsync
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,13 +26,27 @@ class MainActivity : AppCompatActivity() {
         register_button = findViewById(R.id.register_button)
 
         login_button.setOnClickListener { v: View ->
-            val intent = Intent(this, HomeActivity::class.java)
+            doAsync {
+                val s: String = ServerManager().test_server();
+                runOnUiThread {
+                    val toast =
+                            Toast.makeText(this@MainActivity, s, Toast.LENGTH_LONG)
+                    toast.show()
+                }
+            }
+
+            val intent = Intent(this, MapsActivity::class.java)
             startActivity(intent)
         }
 
         register_button.setOnClickListener { v: View ->
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
+            /*
+            doAsync {
+                ServerManager().run();
+            }
+             */
         }
     }
 }
