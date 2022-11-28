@@ -16,7 +16,7 @@ class UploadUtility(activity: Activity, location: String) {
     var loc = location
     var activity = activity;
     var dialog: ProgressDialog? = null
-    var serverURL: String = "http://192.168.1.6:8000/upload_image/"
+    var serverURL: String = "http://10.197.31.199:8000/upload_image/"
     val client = OkHttpClient()
 
     fun uploadFile(sourceFilePath: String, uploadedFileName: String? = null) {

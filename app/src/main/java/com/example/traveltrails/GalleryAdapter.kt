@@ -1,5 +1,6 @@
 package com.example.traveltrails
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
@@ -8,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
@@ -35,7 +38,10 @@ class GalleryAdapter(val locations: List<Location>) : RecyclerView.Adapter<Galle
         }
 
         holder.recipeTitle.setOnClickListener { v: View ->
-
+            val sceneViewerIntent = Intent(Intent.ACTION_VIEW)
+            sceneViewerIntent.data = Uri.parse("https://arvr.google.com/scene-viewer/1.0?file=https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Avocado/glTF/Avocado.gltf")
+            sceneViewerIntent.setPackage("com.google.android.googlequicksearchbox")
+            v.getContext().startActivity(sceneViewerIntent)
         }
     }
 

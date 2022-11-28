@@ -83,7 +83,7 @@ class CameraActivity : AppCompatActivity() {
                 val intent = Intent(this, MapsActivity::class.java)
 
                 if(!hasLoc(location))
-                    gallery_locations.add(Location(location,0,"https://dcist.com/wp-content/uploads/sites/3/2020/07/washington-monument-5266903_1920.jpg"))
+                    gallery_locations.add(Location(location,25,"https://npf-prod.imgix.net/uploads/USA-Franklin_Delano_Roosevelt_Memorial_2022-06-13-204044_cjlw.jpg?auto=compress%2Cformat&fit=max&q=80&w=1600"))
                 startActivity(intent)
         }
     }

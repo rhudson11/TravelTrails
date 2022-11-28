@@ -50,9 +50,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
 
         // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        val FDR = LatLng(38.8837648, -77.044136)
+        mMap.addMarker(MarkerOptions().position(FDR).title("FDR Statue"))
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(FDR))
 
         mMap.setOnMarkerClickListener { marker ->
             if (marker.isInfoWindowShown) {
