@@ -26,7 +26,8 @@ class GalleryActivity : AppCompatActivity() {
 
         view3Dbutton.setOnClickListener { v: View ->
             val sceneViewerIntent = Intent(Intent.ACTION_VIEW)
-            sceneViewerIntent.data = Uri.parse("https://arvr.google.com/scene-viewer/1.0?file=https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Avocado/glTF/Avocado.gltf")
+            //sceneViewerIntent.data = Uri.fromFile()
+            sceneViewerIntent.data = Uri.parse("https://raw.githubusercontent.com/ajbt200128/travel-trails-server/austin/image-db/fused_xxs.gltf")
             sceneViewerIntent.setPackage("com.google.android.googlequicksearchbox")
             startActivity(sceneViewerIntent)
         }
