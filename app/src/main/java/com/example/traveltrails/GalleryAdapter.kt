@@ -27,13 +27,13 @@ class GalleryAdapter(val locations: List<Location>) : RecyclerView.Adapter<Galle
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentRecipe = locations[position]
-        holder.placeTitle.setText(currentRecipe.title)
-        holder.numPoints.setText("Points: " + currentRecipe.score.toString())
+        val currentLocation = locations[position]
+        holder.placeTitle.setText(currentLocation.title)
+        holder.numPoints.setText("Points: " + currentLocation.score.toString())
 
-        if(!currentRecipe.imgUrl.isNullOrBlank()) {
+        if(!currentLocation.imgUrl.isNullOrBlank()) {
             Picasso.get()
-                    .load(currentRecipe.imgUrl)
+                    .load(currentLocation.imgUrl)
                     .into(holder.icon)
         }
 
