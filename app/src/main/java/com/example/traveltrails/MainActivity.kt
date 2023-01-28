@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import org.jetbrains.anko.doAsync
 
 var gallery_locations: ArrayList<Location> = ArrayList<Location>()
+var friends: ArrayList<Friend> = ArrayList<Friend>()
 
 class MainActivity : AppCompatActivity() {
 

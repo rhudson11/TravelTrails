@@ -41,8 +41,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         profile_button.setOnClickListener { v: View ->
-            val intent = Intent(this, MainActivity::class.java)
-            gallery_locations.clear()
+            val intent = Intent(this,FriendActivity::class.java)
             startActivity(intent)
         }
 
