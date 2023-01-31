@@ -11,12 +11,13 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
-class UploadUtility(activity: Activity, location: String) {
+class UploadUtility(activity: Activity, location: String, modelID: String) {
 
     var loc = location
+    var modelID = modelID
     var activity = activity;
     var dialog: ProgressDialog? = null
-    var serverURL: String = "http://coltrane.cs.seas.gwu.edu:8080/upload_image/1"
+    var serverURL: String = "http://coltrane.cs.seas.gwu.edu:8080/upload_image/"
     val client = OkHttpClient()
 
     fun uploadFile(sourceFilePath: String, uploadedFileName: String? = null) {
@@ -43,7 +44,7 @@ class UploadUtility(activity: Activity, location: String) {
                                 .addFormDataPart("file", fileName,sourceFile.asRequestBody(mimeType.toMediaTypeOrNull()))
                                 .build()
 
-                val request: Request = Request.Builder().url(serverURL).post(requestBody).build()
+                val request: Request = Request.Builder().url(serverURL+modelID).post(requestBody).build()
 
                 val response: Response = client.newCall(request).execute()
 

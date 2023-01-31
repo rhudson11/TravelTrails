@@ -29,6 +29,7 @@ class CameraActivity : AppCompatActivity() {
     private lateinit var take_picture_button: Button
     private lateinit var camera_gallery_button: Button
     private lateinit var location: String
+    private lateinit var modelID: String
     private lateinit var imageUri: Uri
     private lateinit var image_viewer: ImageView
     private lateinit var loc_text: TextView
@@ -42,6 +43,7 @@ class CameraActivity : AppCompatActivity() {
         image_viewer = findViewById(R.id.sample_image)
         loc_text = findViewById(R.id.loc_text)
         location = intent.getStringExtra("Title")!!
+        modelID = intent.getStringExtra("ModelID")!!
         loc_text.setText(location)
 
         image_viewer.setImageResource(R.drawable.earth);
@@ -72,18 +74,18 @@ class CameraActivity : AppCompatActivity() {
         // Callback from camera intent
         if (resultCode == Activity.RESULT_OK) {
                 if(requestCode == 1001)
-                    UploadUtility(this, location).uploadFile(imageUri)
+                    UploadUtility(this, location, modelID).uploadFile(imageUri)
                 if(requestCode == 1000) {
                     if (data != null) {
                         imageUri = data.data!!
-                        UploadUtility(this, location).uploadFile(imageUri)
+                        UploadUtility(this, location, modelID).uploadFile(imageUri)
                     }
                 }
 
                 val intent = Intent(this, MapsActivity::class.java)
 
                 if(!hasLoc(location))
-                    gallery_locations.add(Location(location,25,"https://npf-prod.imgix.net/uploads/USA-Franklin_Delano_Roosevelt_Memorial_2022-06-13-204044_cjlw.jpg?auto=compress%2Cformat&fit=max&q=80&w=1600"))
+                    gallery_locations.add(Location(location, modelID,25,"https://npf-prod.imgix.net/uploads/USA-Franklin_Delano_Roosevelt_Memorial_2022-06-13-204044_cjlw.jpg?auto=compress%2Cformat&fit=max&q=80&w=1600"))
                 startActivity(intent)
         }
     }

@@ -22,6 +22,13 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import okhttp3.logging.HttpLoggingInterceptor
+import org.jetbrains.anko.doAsync
+import org.json.JSONArray
+import org.json.JSONObject
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -60,7 +67,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        /*
         val okHttpClient: OkHttpClient
         val builder = OkHttpClient.Builder()
         val logging = HttpLoggingInterceptor()
@@ -68,37 +74,44 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         builder.addInterceptor(logging)
         okHttpClient = builder.build()
 
-        val request =
-                Request.Builder()
-                        .get()
-                        .url("http://coltrane.cs.seas.gwu.edu:8080/")
-                        .build()
+        doAsync {
+            val request =
+                    Request.Builder()
+                            .get()
+                            .url("http://coltrane.cs.seas.gwu.edu:8080/locations")
+                            .build()
 
-        val response: Response = okHttpClient.newCall(request).execute()
-        val responseBody = response.body?.string()
+            val response: Response = okHttpClient.newCall(request).execute()
+            val responseBody = response.body?.string()
 
-        if(response.isSuccessful && !responseBody.isNullOrBlank()) {
-            val json = JSONObject(responseBody)
-            val results = json.getJSONArray("locations")
-            for(i in 0 until results.length()) {
-                val curr = results.getJSONObject(i)
-                val latLng = LatLng()
-                mMap.addMarker(MarkerOptions().position(FDR).title("FDR Statue").snippet("2"))
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(FDR))
+            if (response.isSuccessful && !responseBody.isNullOrBlank()) {
+                val json = JSONArray(responseBody)
+             //   val results = json.getJSONArray("")
+                for (i in 0 until json.length()) {
+                    val curr = json.getJSONObject(i)
+                    val name: String = curr.getString("name").toString()
+                    val modelID: String = curr.getString("id").toString()
+                    val lat: Double = (curr.getDouble("latitude"))
+                    val lon: Double = (curr.getDouble("longitude"))
+                    val latLng = LatLng(lat, lon)
+                    runOnUiThread {
+                        mMap.addMarker(MarkerOptions().position(latLng).title(name).snippet(modelID))
+                    }
+                }
             }
         }
-        */
 
+/*
         val FDR = LatLng(38.8837648, -77.044136)
         mMap.addMarker(MarkerOptions().position(FDR).title("FDR Statue").snippet("2"))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(FDR))
-
-
+*/
         mMap.setOnMarkerClickListener { marker ->
             if (marker.isInfoWindowShown) {
                 marker.hideInfoWindow()
             } else {
                 val intent = Intent(this, CameraActivity::class.java)
+                intent.putExtra("ModelID", marker.snippet)
                 intent.putExtra("Title", marker.title)
                 startActivity(intent)
             }
