@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "949802057803",
+    "project_id": "travel-trails",
+    "storage_bucket": "travel-trails.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:949802057803:android:44e790625ccda4279e0dce",
+        "android_client_info": {
+          "package_name": "com.example.traveltrails"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "949802057803-7r4rea7v7qnmkgmaafr7uuitbmrgjskj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRAs6M4HYkMy4pw-Nh3UTyk8fNOkRkl1c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "949802057803-7r4rea7v7qnmkgmaafr7uuitbmrgjskj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

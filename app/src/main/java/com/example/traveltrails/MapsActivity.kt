@@ -1,25 +1,41 @@
 package com.example.traveltrails
 
+import android.Manifest
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.pm.PackageManager
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageButton
 import android.widget.Toast
-
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import okhttp3.logging.HttpLoggingInterceptor
 import org.jetbrains.anko.doAsync
+import org.json.JSONArray
+import org.json.JSONObject
+
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var home_button: ImageButton
+    private lateinit var currentLocation: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +53,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
     }
 
+
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -49,16 +67,51 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        // Add a marker in Sydney and move the camera
-        val FDR = LatLng(38.8837648, -77.044136)
-        mMap.addMarker(MarkerOptions().position(FDR).title("FDR Statue"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(FDR))
+        val okHttpClient: OkHttpClient
+        val builder = OkHttpClient.Builder()
+        val logging = HttpLoggingInterceptor()
+        logging.level = HttpLoggingInterceptor.Level.BODY
+        builder.addInterceptor(logging)
+        okHttpClient = builder.build()
 
+        doAsync {
+            val request =
+                    Request.Builder()
+                            .get()
+                            .url("http://coltrane.cs.seas.gwu.edu:8080/locations")
+                            .build()
+
+            val response: Response = okHttpClient.newCall(request).execute()
+            val responseBody = response.body?.string()
+
+            if (response.isSuccessful && !responseBody.isNullOrBlank()) {
+                val json = JSONArray(responseBody)
+             //   val results = json.getJSONArray("")
+                for (i in 0 until json.length()) {
+                    val curr = json.getJSONObject(i)
+                    val name: String = curr.getString("name").toString()
+                    val modelID: String = curr.getString("id").toString()
+                    val lat: Double = (curr.getDouble("latitude"))
+                    val lon: Double = (curr.getDouble("longitude"))
+                    val latLng = LatLng(lat, lon)
+                    runOnUiThread {
+                        mMap.addMarker(MarkerOptions().position(latLng).title(name).snippet(modelID))
+                    }
+                }
+            }
+        }
+
+/*
+        val FDR = LatLng(38.8837648, -77.044136)
+        mMap.addMarker(MarkerOptions().position(FDR).title("FDR Statue").snippet("2"))
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(FDR))
+*/
         mMap.setOnMarkerClickListener { marker ->
             if (marker.isInfoWindowShown) {
                 marker.hideInfoWindow()
             } else {
                 val intent = Intent(this, CameraActivity::class.java)
+                intent.putExtra("ModelID", marker.snippet)
                 intent.putExtra("Title", marker.title)
                 startActivity(intent)
             }

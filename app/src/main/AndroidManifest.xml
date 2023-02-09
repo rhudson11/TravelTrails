@@ -7,6 +7,7 @@
          location permissions for the "MyLocation" functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission. ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -18,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelTrails"
         android:usesCleartextTraffic="true">
-        <activity android:name=".GalleryActivity2"></activity>
+        <activity android:name=".FriendActivity"></activity>
+        <activity android:name=".GalleryActivity2" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
