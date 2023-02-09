@@ -10,7 +10,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import org.jetbrains.anko.doAsync
 
 var gallery_locations: ArrayList<Location> = ArrayList<Location>()
 var friends: ArrayList<Friend> = ArrayList<Friend>()
@@ -55,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         register_button.setOnClickListener { v: View ->
-            val intent = Intent(this, RegisterActivity::class.java)
+            val intent = Intent(this, GoogleLocationActivity::class.java)
             startActivity(intent)
             /*
             doAsync {
