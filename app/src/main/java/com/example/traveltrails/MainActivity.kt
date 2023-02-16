@@ -37,10 +37,11 @@ class MainActivity : AppCompatActivity() {
         preferences = getSharedPreferences("traveltrails", Context.MODE_PRIVATE)
 
         login_button.setOnClickListener { v: View ->
-            preferences.edit().putString("username", login_user_field.text.toString()).apply()
+            preferences.edit().putString("username", login_user_field.text.toString().substringBefore('@')).apply()
 
-            val inputtedUsername = login_user_field.text.toString().trim() + "@gmail.com"
+            val inputtedUsername = login_user_field.text.toString().trim()
             val inputtedPassword = login_pass_field.text.toString().trim()
+
             firebaseAuth.signInWithEmailAndPassword(inputtedUsername, inputtedPassword) .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val user = firebaseAuth.currentUser
@@ -54,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         register_button.setOnClickListener { v: View ->
-            val intent = Intent(this, GoogleLocationActivity::class.java)
+            val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
             /*
             doAsync {

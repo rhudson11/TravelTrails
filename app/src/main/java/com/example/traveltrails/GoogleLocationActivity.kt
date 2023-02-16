@@ -67,6 +67,6 @@ class GoogleLocationActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 100
+        const val MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 100
     }
 }
