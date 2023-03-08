@@ -45,6 +45,7 @@ class CameraActivity : AppCompatActivity() {
         loc_text = findViewById(R.id.loc_text)
         location = intent.getStringExtra("Title")!!
         loc_text.setText(location)
+        modelID = intent.getStringExtra("ModelID")!!
 
         val preferences = getSharedPreferences("traveltrails", Context.MODE_PRIVATE)
         username = preferences.getString("username", "")!!
@@ -73,7 +74,7 @@ class CameraActivity : AppCompatActivity() {
 
         view_suggestions_button.setOnClickListener { v: View ->
             val sceneViewerIntent = Intent(Intent.ACTION_VIEW)
-            val modelID = intent.getStringExtra("ModelID")!!
+           // val modelID = intent.getStringExtra("ModelID")!!
             sceneViewerIntent.data = Uri.parse("https://arvr.google.com/scene-viewer/1.0?file=http://coltrane.cs.seas.gwu.edu:8080/location/$modelID/heatmap.gltf")
             sceneViewerIntent.setPackage("com.google.android.googlequicksearchbox")
             v.getContext().startActivity(sceneViewerIntent)
@@ -162,7 +163,7 @@ class CameraActivity : AppCompatActivity() {
                 val intent = Intent(this, MapsActivity::class.java)
 
                 if(!hasLoc(location))
-                    gallery_locations.add(Location(location, modelID, 25, "https://npf-prod.imgix.net/uploads/USA-Franklin_Delano_Roosevelt_Memorial_2022-06-13-204044_cjlw.jpg?auto=compress%2Cformat&fit=max&q=80&w=1600"))
+                    gallery_locations.add(Location(location, modelID, 25, "https://images.assetsdelivery.com/compings_v2/jemastock/jemastock1909/jemastock190937249.jpg"))
                 startActivity(intent)
         }
     }
