@@ -110,10 +110,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     val lat: Double = (curr.getDouble("latitude"))
                     val lon: Double = (curr.getDouble("longitude"))
                     var latLng = LatLng(lat, lon)
-                    if(name == "FDR Memorial")
-                        latLng = LatLng(38.8835, -77.0433)
                     runOnUiThread {
-                        mMap.addMarker(MarkerOptions().position(latLng).title(name).snippet(modelID))
+                        if(name != "FDR Memorial" && name != "Washington Monument")
+                            mMap.addMarker(MarkerOptions().position(latLng).title(name).snippet(modelID))
                     }
                 }
             }

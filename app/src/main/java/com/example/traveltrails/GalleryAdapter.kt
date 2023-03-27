@@ -29,7 +29,8 @@ class GalleryAdapter(val locations: List<Location>) : RecyclerView.Adapter<Galle
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentLocation = locations[position]
         holder.placeTitle.setText(currentLocation.title)
-        holder.numPoints.setText("Points: " + currentLocation.score.toString())
+        holder.numPoints.setText("Washington, D.C.")
+        //holder.numPoints.setText("Points: " + currentLocation.score.toString())
 
         if(!currentLocation.imgUrl.isNullOrBlank()) {
             Picasso.get()
