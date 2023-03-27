@@ -29,7 +29,8 @@ class GalleryAdapter(val locations: List<Location>) : RecyclerView.Adapter<Galle
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentLocation = locations[position]
         holder.placeTitle.setText(currentLocation.title)
-        holder.numPoints.setText("Points: " + currentLocation.score.toString())
+        holder.numPoints.setText("Washington, D.C.")
+        //holder.numPoints.setText("Points: " + currentLocation.score.toString())
 
         if(!currentLocation.imgUrl.isNullOrBlank()) {
             Picasso.get()
@@ -39,10 +40,16 @@ class GalleryAdapter(val locations: List<Location>) : RecyclerView.Adapter<Galle
 
         holder.placeTitle.setOnClickListener { v: View ->
             val sceneViewerIntent = Intent(Intent.ACTION_VIEW)
-            if(holder.placeTitle.text.contains("Lincoln"))
-                sceneViewerIntent.data = Uri.parse("https://arvr.google.com/scene-viewer/1.0?file=http://coltrane.cs.seas.gwu.edu:8080/location/4/model.gltf")
-            else
-                sceneViewerIntent.data = Uri.parse("https://arvr.google.com/scene-viewer/1.0?file=http://coltrane.cs.seas.gwu.edu:8080/location/1/model.gltf")
+
+            var displayID = -1
+
+            for (i in 0 until gallery_locations.size) {
+                if(gallery_locations.get(i).title == holder.placeTitle.text) {
+                    displayID = gallery_locations.get(i).modelID.toInt()
+                }
+            }
+
+            sceneViewerIntent.data = Uri.parse("https://arvr.google.com/scene-viewer/1.0?file=http://coltrane.cs.seas.gwu.edu:8080/location/$displayID/model.gltf")
             sceneViewerIntent.setPackage("com.google.android.googlequicksearchbox")
             v.getContext().startActivity(sceneViewerIntent)
         }
