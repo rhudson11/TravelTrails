@@ -39,7 +39,10 @@ class GalleryAdapter(val locations: List<Location>) : RecyclerView.Adapter<Galle
 
         holder.placeTitle.setOnClickListener { v: View ->
             val sceneViewerIntent = Intent(Intent.ACTION_VIEW)
-            sceneViewerIntent.data = Uri.parse("https://arvr.google.com/scene-viewer/1.0?file=http://coltrane.cs.seas.gwu.edu:8080/location/1/model.gltf")
+            if(holder.placeTitle.text.contains("Lincoln"))
+                sceneViewerIntent.data = Uri.parse("https://arvr.google.com/scene-viewer/1.0?file=http://coltrane.cs.seas.gwu.edu:8080/location/4/model.gltf")
+            else
+                sceneViewerIntent.data = Uri.parse("https://arvr.google.com/scene-viewer/1.0?file=http://coltrane.cs.seas.gwu.edu:8080/location/1/model.gltf")
             sceneViewerIntent.setPackage("com.google.android.googlequicksearchbox")
             v.getContext().startActivity(sceneViewerIntent)
         }

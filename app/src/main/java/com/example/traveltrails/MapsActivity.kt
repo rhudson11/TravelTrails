@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
@@ -36,6 +37,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var home_button: ImageButton
     private lateinit var currentLocation: ImageButton
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,9 +50,23 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             startActivity(intent)
         }
 
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        if (ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this,
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    GoogleLocationActivity.MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
+            )
+        } else {
+            getCurrentLocation()
+        }
+
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
+       mapFragment.getMapAsync(this)
     }
 
 
@@ -101,11 +117,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
 
-/*
-        val FDR = LatLng(38.8837648, -77.044136)
-        mMap.addMarker(MarkerOptions().position(FDR).title("FDR Statue").snippet("2"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(FDR))
-*/
         mMap.setOnMarkerClickListener { marker ->
             if (marker.isInfoWindowShown) {
                 marker.hideInfoWindow()
@@ -113,9 +124,51 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 val intent = Intent(this, CameraActivity::class.java)
                 intent.putExtra("ModelID", marker.snippet)
                 intent.putExtra("Title", marker.title)
-                startActivity(intent)
+                if(marker.title != "Your Location")
+                    startActivity(intent)
+                else
+                    marker.showInfoWindow()
             }
             true
         }
+    }
+
+    private fun getCurrentLocation() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            fusedLocationClient.lastLocation
+                    .addOnSuccessListener { location: Location? ->
+                        if (location != null) {
+                            val latitude = location.latitude
+                            val longitude = location.longitude
+                            Toast.makeText(this, "Latitude: $latitude\nLongitude: $longitude", Toast.LENGTH_SHORT).show()
+                            mMap.addMarker(MarkerOptions().position(LatLng(latitude, longitude)).title("Your Location"))?.showInfoWindow()
+                            mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(latitude, longitude)))
+                            mMap.setMinZoomPreference(5.0F)
+                        } else {
+                            Toast.makeText(this, "Unable to get location", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+        } else {
+            Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    getCurrentLocation()
+                } else {
+                    Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    companion object {
+        private const val MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 100
     }
 }
